@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.4</version>
+    <date>2023-07-28T10:12:56Z</date>
+    <template_groups>
+        <template_group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>8ea6a68b71a9493aa78cb5291b7affa3</uuid>
+            <template>WinUpdates-v5</template>
+            <name>WinUpdates-v5</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>c7866d01438a43d88085815e1ccc0b8a</uuid>
+                    <name>Deploy PS Script</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>system.run[powershell.exe -NoProfile -ExecutionPolicy Bypass -command Invoke-WebRequest -Uri https://raw.github.com/trauler/zabwinupd/e927301f05ae5ebde4e29fe127dff16e653da912/check_win_updates-v5.ps1 -OutFile $Env:Programfiles\'Zabbix Agent 2\plugins\check_win_updates-v5.ps1',nowait]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>LOG</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Winupdates</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>e0fdbbb63cf94159851dc7d74b3474f3</uuid>
+                    <name>WinUpdate-Check</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>system.run[powershell.exe -NoProfile -ExecutionPolicy Bypass -file &quot;C:\Program Files\Zabbix Agent 2\plugins\check_win_updates-v5.ps1&quot;]</key>
+                    <delay>5m</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>LOG</value_type>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Winupdates</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>0a734c892c644dc99637c5b41ccc7ad9</uuid>
+                    <name>Critical Updates</name>
+                    <type>TRAP</type>
+                    <key>Winupdates.Critical</key>
+                    <delay>0</delay>
+                    <history>30d</history>
+                    <trends>30d</trends>
+                    <description>Number of Critical Windows Updates Available</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Winupdates-Panel</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>c6a26e6a846e482a8ffd6266e737c8ba</uuid>
+                            <expression>last(/WinUpdates-v5/Winupdates.Critical)&gt;0 and last(/WinUpdates-v5/Winupdates.Critical)&lt;3</expression>
+                            <name>There are critical updates for {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                        <trigger>
+                            <uuid>b5c12b215f8c44dd8cc07d8a41b8ee3a</uuid>
+                            <expression>last(/WinUpdates-v5/Winupdates.Critical)&gt;3</expression>
+                            <name>There are more than 3 critical updates for {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>549583c196e844809c7fd54b74164c3a</uuid>
+                    <name>Hidden Updates</name>
+                    <type>TRAP</type>
+                    <key>Winupdates.Hidden</key>
+                    <delay>0</delay>
+                    <history>30d</history>
+                    <trends>30d</trends>
+                    <description>Number of Hidden Windows Updates</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Winupdates-Panel</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>93a6265c9637443c84a46a3aed6d8820</uuid>
+                            <expression>last(/WinUpdates-v5/Winupdates.Hidden)&gt;0</expression>
+                            <name>There are hidden updates for {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>a692ec8ff72044cb8ef1c672a59f7aa6</uuid>
+                    <name>Last Updated</name>
+                    <type>TRAP</type>
+                    <key>Winupdates.LastUpdated</key>
+                    <delay>0</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>Date last Windows updates were applied</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Winupdates-Panel</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>0f9c1f440cea4245bc9dc994f74f1bc0</uuid>
+                    <name>Optional Updates</name>
+                    <type>TRAP</type>
+                    <key>Winupdates.Optional</key>
+                    <delay>0</delay>
+                    <history>30d</history>
+                    <trends>30d</trends>
+                    <description>Number of Optional Windows Updates Available</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Winupdates-Panel</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>9da058b2cb4d465fa7b49180b47e374f</uuid>
+                            <expression>last(/WinUpdates-v5/Winupdates.Optional)&gt;5</expression>
+                            <name>There are a large number of optional updates for {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <uuid>cf3b2a03881a416098a09fc884a94b02</uuid>
+                            <expression>last(/WinUpdates-v5/Winupdates.Optional)&gt;0</expression>
+                            <name>There are optional updates for {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>949c23798c6243ff81c6fe59bf2df1e7</uuid>
+                    <name>Reboot Required</name>
+                    <type>TRAP</type>
+                    <key>Winupdates.Reboot</key>
+                    <delay>0</delay>
+                    <history>30d</history>
+                    <description>Number of Critical Windows Updates Available</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Winupdates-Panel</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>3777d1809e9043cfa0002fa292552e00</uuid>
+                            <expression>last(/WinUpdates-v5/Winupdates.Reboot)=1</expression>
+                            <name>Reboot required for {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>cc3cb1cb03c04e6b893df2798f247944</uuid>
+                    <name>Installing Updates</name>
+                    <type>TRAP</type>
+                    <key>Winupdates.Updating</key>
+                    <delay>0</delay>
+                    <history>30d</history>
+                    <trends>30d</trends>
+                    <description>Windows is installing updates</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Winupdates-Panel</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>aa32e5c2d5d9403fa2f1b078fdd3b1e5</uuid>
+                            <expression>last(/WinUpdates-v5/Winupdates.Updating)=1</expression>
+                            <name>{HOST.NAME} is running updates</name>
+                            <priority>INFO</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+</zabbix_export>
