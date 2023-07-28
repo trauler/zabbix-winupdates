@@ -18,8 +18,8 @@ $reportpath = "C:\IT\WinUpdates"
 
 # Change $ZabbixInstallPath to wherever your Zabbix Agent is installed
 
-$ZabbixInstallPath = "$Env:Programfiles\Zabbix Agent"
-$ZabbixConfFile = "$Env:Programfiles\Zabbix Agent"
+$ZabbixInstallPath = "$Env:Programfiles\Zabbix Agent 2"
+$ZabbixConfFile = "$Env:Programfiles\Zabbix Agent 2"
 
 # Do not change the following variables unless you know what you are doing
 
@@ -37,7 +37,7 @@ $returnStateOptionalUpdates = $returnStateWarning
 $Sender = "$ZabbixInstallPath\zabbix_sender.exe"
 $Senderarg1 = '-vv'
 $Senderarg2 = '-c'
-$Senderarg3 = "$ZabbixConfFile\zabbix_agentd.conf"
+$Senderarg3 = "$ZabbixConfFile\zabbix_agent2.conf"
 $Senderarg4 = '-i'
 $SenderargUpdateReboot = '\updatereboot.txt'
 $Senderarglastupdated = '\lastupdated.txt'
