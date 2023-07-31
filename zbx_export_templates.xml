@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.4</version>
+    <date>2023-07-31T07:41:52Z</date>
+    <template_groups>
+        <template_group>
+            <uuid>f76906b48150456f8e43dac41a0fae49</uuid>
+            <name>Templates/VM and Servers update test</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>7ff42453a82b45ef9184b46404272105</uuid>
+            <template>VM and servers update test</template>
+            <name>VM and servers update test</name>
+            <groups>
+                <group>
+                    <name>Templates/VM and Servers update test</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>75a9237cef7341f3af9a2fb1ede6329e</uuid>
+                    <name>Deploy script to windows</name>
+                    <key>system.run[powershell.exe -NoProfile -ExecutionPolicy Bypass -command Invoke-WebRequest -Uri https://raw.githubusercontent.com/trauler/zabbix-winupdates/753f48b1b51b07b9bac81a1e9507d8d58af29337/check_win_updates-v5.ps1 -OutFile $Env:Programfiles\'Zabbix Agent 2\check_win_updates-v5.ps1',nowait]</key>
+                    <delay>1d</delay>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>LOG</value_type>
+                    <tags>
+                        <tag>
+                            <tag>VM and servers update test</tag>
+                            <value>VM and servers update test</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>64dc04b1f0e44fbeb161dadf17f5ca94</uuid>
+                    <name>Windows Update status</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>system.run[powershell.exe -NoProfile -ExecutionPolicy Bypass -file &quot;C:\Program Files\Zabbix Agent 2\check_win_updates-v5.ps1&quot;]</key>
+                    <delay>1d;h7</delay>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>LOG</value_type>
+                    <tags>
+                        <tag>
+                            <tag>VM and servers update test</tag>
+                            <value>Winupdates</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>76f2718604014b47a3a5a869a7fc2922</uuid>
+                    <name>Critical Updates</name>
+                    <type>TRAP</type>
+                    <key>Winupdates.Critical</key>
+                    <delay>0</delay>
+                    <status>DISABLED</status>
+                    <tags>
+                        <tag>
+                            <tag>VM and servers update test</tag>
+                            <value>Winupdates-Panel</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>30dfd10c8a1e4f73ad0e0e945b8be9ff</uuid>
+                            <expression>last(/VM and servers update test/Winupdates.Critical)&gt;=1</expression>
+                            <name>There are critical updates for {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>3f7dfdab516b47559bec1a9768fd6b48</uuid>
+                    <name>Hidden Updates</name>
+                    <type>TRAP</type>
+                    <key>Winupdates.Hidden</key>
+                    <delay>0</delay>
+                    <status>DISABLED</status>
+                    <tags>
+                        <tag>
+                            <tag>VM and servers update test</tag>
+                            <value>Winupdates-Panel</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>281693973b4341029096b7974f6d0603</uuid>
+                    <name>Last Updated</name>
+                    <type>TRAP</type>
+                    <key>Winupdates.LastUpdated</key>
+                    <delay>0</delay>
+                    <trends>0</trends>
+                    <status>DISABLED</status>
+                    <value_type>TEXT</value_type>
+                    <description>Show last update date</description>
+                    <tags>
+                        <tag>
+                            <tag>VM and servers update test</tag>
+                            <value>Winupdates-Panel</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>cf8508de5d0b44e9be5687872f28e5c1</uuid>
+                    <name>Optional Updates</name>
+                    <type>TRAP</type>
+                    <key>Winupdates.Optional</key>
+                    <delay>0</delay>
+                    <status>DISABLED</status>
+                    <tags>
+                        <tag>
+                            <tag>VM and servers update test</tag>
+                            <value>Winupdates-Panel</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>373c80f8c1144cabb5b480815dcf66de</uuid>
+                            <expression>last(/VM and servers update test/Winupdates.Optional)&gt;=5</expression>
+                            <name>There are a large number of optional updates for {HOST.NAME}</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                        <trigger>
+                            <uuid>8e50e5e124814e74b2ccb38946adbaf0</uuid>
+                            <expression>last(/VM and servers update test/Winupdates.Optional)&gt;0</expression>
+                            <name>There are optional updates for {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>87fd93067f4141e38caf4c82bf11523b</uuid>
+                    <name>Reboot Required</name>
+                    <type>TRAP</type>
+                    <key>Winupdates.Reboot</key>
+                    <delay>0</delay>
+                    <status>DISABLED</status>
+                    <tags>
+                        <tag>
+                            <tag>VM and servers update test</tag>
+                            <value>Winupdates-Panel</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>db7989b2d0494494b3f07324f0185747</uuid>
+                            <expression>last(/VM and servers update test/Winupdates.Reboot)=1</expression>
+                            <name>Reboot required for {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+</zabbix_export>
